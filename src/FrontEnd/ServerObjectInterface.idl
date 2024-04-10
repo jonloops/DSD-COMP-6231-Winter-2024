@@ -5,9 +5,9 @@ module ServerObjectInterfaceApp
 		/**
         * Only admin
         */
-        string addAppointment(in string appointmentID, in string appointmentType, in long bookingCapacity);
+        string addAppointment(in string userID, in string appointmentID, in string appointmentType, in long bookingCapacity);
 
-        string removeAppointment(in string appointmentID, in string appointmentType);
+        string removeAppointment(in string userID, in string appointmentID, in string appointmentType);
 
         string listAppointmentAvailability(in string appointmentType);
 

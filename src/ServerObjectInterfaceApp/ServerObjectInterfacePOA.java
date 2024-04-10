@@ -44,11 +44,12 @@ public abstract class ServerObjectInterfacePOA extends org.omg.PortableServer.Se
           */
        case 0:  // ServerObjectInterfaceApp/ServerObjectInterface/addAppointment
        {
-         String appointmentID = in.read_string ();
+    	 String userID = in.read_string ();
+    	 String appointmentID = in.read_string ();
          String appointmentType = in.read_string ();
          int bookingCapacity = in.read_long ();
          String $result = null;
-         $result = this.addAppointment (appointmentID, appointmentType, bookingCapacity);
+         $result = this.addAppointment (userID, appointmentID, appointmentType, bookingCapacity);
          out = $rh.createReply();
          out.write_string ($result);
          break;
@@ -56,10 +57,11 @@ public abstract class ServerObjectInterfacePOA extends org.omg.PortableServer.Se
 
        case 1:  // ServerObjectInterfaceApp/ServerObjectInterface/removeAppointment
        {
-         String appointmentID = in.read_string ();
+    	 String userID = in.read_string ();
+    	 String appointmentID = in.read_string ();
          String appointmentType = in.read_string ();
          String $result = null;
-         $result = this.removeAppointment (appointmentID, appointmentType);
+         $result = this.removeAppointment (userID, appointmentID, appointmentType);
          out = $rh.createReply();
          out.write_string ($result);
          break;
@@ -67,9 +69,10 @@ public abstract class ServerObjectInterfacePOA extends org.omg.PortableServer.Se
 
        case 2:  // ServerObjectInterfaceApp/ServerObjectInterface/listAppointmentAvailability
        {
-         String appointmentType = in.read_string ();
+    	 String userID = in.read_string ();
+    	 String appointmentType = in.read_string ();
          String $result = null;
-         $result = this.listAppointmentAvailability (appointmentType);
+         $result = this.listAppointmentAvailability (userID, appointmentType);
          out = $rh.createReply();
          out.write_string ($result);
          break;

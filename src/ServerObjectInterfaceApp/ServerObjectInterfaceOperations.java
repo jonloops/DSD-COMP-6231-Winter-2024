@@ -14,9 +14,9 @@ public interface ServerObjectInterfaceOperations
   /**
           * Only admin
           */
-  String addAppointment (String appointmentID, String appointmentType, int bookingCapacity);
-  String removeAppointment (String appointmentID, String appointmentType);
-  String listAppointmentAvailability (String appointmentType);
+  String addAppointment (String userID, String appointmentID, String appointmentType, int bookingCapacity);
+  String removeAppointment (String userID, String appointmentID, String appointmentType);
+  String listAppointmentAvailability (String userID, String appointmentType);
 
   /**
           * Both admin and patient

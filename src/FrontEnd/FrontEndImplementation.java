@@ -33,10 +33,9 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
         orb = orb_val;
     }
 
-
     @Override
-    public synchronized String addAppointment(String appointmentID, String appointmentType, int bookingCapacity) {
-        MyRequest myRequest = new MyRequest("addAppointment","userID"); //to change "userID" later as it is not being passed currently for this option 
+    public synchronized String addAppointment(String userID, String appointmentID, String appointmentType, int bookingCapacity) {
+        MyRequest myRequest = new MyRequest("addAppointment", userID);  
         myRequest.setEventID(appointmentID);
         myRequest.setEventType(appointmentType);
         myRequest.setBookingCapacity(bookingCapacity);
@@ -46,8 +45,8 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     }
 
     @Override
-    public synchronized String removeAppointment(String appointmentID, String appointmentType) {
-        MyRequest myRequest = new MyRequest("removeAppointment","userID"); //to change "userID" later as it is not being passed currently for this option 
+    public synchronized String removeAppointment(String userID, String appointmentID, String appointmentType) {
+        MyRequest myRequest = new MyRequest("removeAppointment", userID);  
         myRequest.setEventID(appointmentID);
         myRequest.setEventType(appointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
@@ -56,8 +55,8 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     }
 
     @Override
-    public synchronized String listAppointmentAvailability(String appointmentType) {
-        MyRequest myRequest = new MyRequest("listAppointmentAvailability","userID"); //to change "userID" later as it is not being passed currently for this option 
+    public synchronized String listAppointmentAvailability(String userID, String appointmentType) {
+        MyRequest myRequest = new MyRequest("listAppointmentAvailability", userID);  
         myRequest.setEventType(appointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
         System.out.println("FE Implementation:listEventAvailability>>>" + myRequest.toString());

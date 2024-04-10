@@ -15,7 +15,7 @@ public class _ServerObjectInterfaceStub extends org.omg.CORBA.portable.ObjectImp
   /**
           * Only admin
           */
-  public String addAppointment (String appointmentID, String appointmentType, int bookingCapacity)
+  public String addAppointment (String userID, String appointmentID, String appointmentType, int bookingCapacity)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -31,13 +31,13 @@ public class _ServerObjectInterfaceStub extends org.omg.CORBA.portable.ObjectImp
                 String _id = $ex.getId ();
                 throw new org.omg.CORBA.MARSHAL (_id);
             } catch (org.omg.CORBA.portable.RemarshalException $rm) {
-                return addAppointment (appointmentID, appointmentType, bookingCapacity        );
+                return addAppointment (userID, appointmentID, appointmentType, bookingCapacity        );
             } finally {
                 _releaseReply ($in);
             }
   } // addAppointment
 
-  public String removeAppointment (String appointmentID, String appointmentType)
+  public String removeAppointment (String userID, String appointmentID, String appointmentType)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -52,13 +52,13 @@ public class _ServerObjectInterfaceStub extends org.omg.CORBA.portable.ObjectImp
                 String _id = $ex.getId ();
                 throw new org.omg.CORBA.MARSHAL (_id);
             } catch (org.omg.CORBA.portable.RemarshalException $rm) {
-                return removeAppointment (appointmentID, appointmentType        );
+                return removeAppointment (userID, appointmentID, appointmentType        );
             } finally {
                 _releaseReply ($in);
             }
   } // removeAppointment
 
-  public String listAppointmentAvailability (String appointmentType)
+  public String listAppointmentAvailability (String userID, String appointmentType)
   {
             org.omg.CORBA.portable.InputStream $in = null;
             try {
@@ -72,7 +72,7 @@ public class _ServerObjectInterfaceStub extends org.omg.CORBA.portable.ObjectImp
                 String _id = $ex.getId ();
                 throw new org.omg.CORBA.MARSHAL (_id);
             } catch (org.omg.CORBA.portable.RemarshalException $rm) {
-                return listAppointmentAvailability (appointmentType        );
+                return listAppointmentAvailability (userID, appointmentType        );
             } finally {
                 _releaseReply ($in);
             }
