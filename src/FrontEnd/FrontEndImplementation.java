@@ -36,8 +36,8 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     @Override
     public synchronized String addAppointment(String userID, String appointmentID, String appointmentType, int bookingCapacity) {
         MyRequest myRequest = new MyRequest("addAppointment", userID);  
-        myRequest.setEventID(appointmentID);
-        myRequest.setEventType(appointmentType);
+        myRequest.setAppointmentID(appointmentID);
+        myRequest.setAppointmentType(appointmentType);
         myRequest.setBookingCapacity(bookingCapacity);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
         System.out.println("FE Implementation:add>>>" + myRequest.toString());
@@ -47,8 +47,8 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     @Override
     public synchronized String removeAppointment(String userID, String appointmentID, String appointmentType) {
         MyRequest myRequest = new MyRequest("removeAppointment", userID);  
-        myRequest.setEventID(appointmentID);
-        myRequest.setEventType(appointmentType);
+        myRequest.setAppointmentID(appointmentID);
+        myRequest.setAppointmentType(appointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
         System.out.println("FE Implementation:remove>>>" + myRequest.toString());
         return validateResponses(myRequest);
@@ -57,17 +57,17 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     @Override
     public synchronized String listAppointmentAvailability(String userID, String appointmentType) {
         MyRequest myRequest = new MyRequest("listAppointmentAvailability", userID);  
-        myRequest.setEventType(appointmentType);
+        myRequest.setAppointmentType(appointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
-        System.out.println("FE Implementation:listEventAvailability>>>" + myRequest.toString());
+        System.out.println("FE Implementation:listAppointmentAvailability>>>" + myRequest.toString());
         return validateResponses(myRequest);
     }
 
     @Override
     public synchronized String bookAppointment(String patientID, String appointmentID, String appointmentType) {
         MyRequest myRequest = new MyRequest("bookAppointment", patientID);
-        myRequest.setEventID(appointmentID);
-        myRequest.setEventType(appointmentType);
+        myRequest.setAppointmentID(appointmentID);
+        myRequest.setAppointmentType(appointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
         System.out.println("FE Implementation:book>>>" + myRequest.toString());
         return validateResponses(myRequest);
@@ -84,8 +84,8 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     @Override
     public synchronized String cancelAppointment(String patientID, String appointmentID, String appointmentType) {
         MyRequest myRequest = new MyRequest("cancelAppointment", patientID);
-        myRequest.setEventID(appointmentID);
-        myRequest.setEventType(appointmentType);
+        myRequest.setAppointmentID(appointmentID);
+        myRequest.setAppointmentType(appointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
         System.out.println("FE Implementation:cancel>>>" + myRequest.toString());
         return validateResponses(myRequest);
@@ -94,10 +94,10 @@ public class FrontEndImplementation extends ServerObjectInterfacePOA {
     @Override
     public synchronized String swapAppointment(String patientID, String newAppointmentID, String newAppointmentType, String oldAppointmentID, String oldAppointmentType) {
         MyRequest myRequest = new MyRequest("swapAppointment","userID"); //to change "userID" later as it is not being passed currently for this option 
-        myRequest.setEventID(newAppointmentID);
-        myRequest.setEventType(newAppointmentType);
-        myRequest.setOldEventID(oldAppointmentID);
-        myRequest.setOldEventType(oldAppointmentType);
+        myRequest.setAppointmentID(newAppointmentID);
+        myRequest.setAppointmentType(newAppointmentType);
+        myRequest.setOldAppointmentID(oldAppointmentID);
+        myRequest.setOldAppointmentType(oldAppointmentType);
         myRequest.setSequenceNumber(sendUdpUnicastToSequencer(myRequest));
         System.out.println("FE Implementation:swap>>>" + myRequest.toString());
         return validateResponses(myRequest);
