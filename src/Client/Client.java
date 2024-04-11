@@ -77,7 +77,7 @@ public class Client {
 		}
 /*
     private static void startConcurrencyTest(NamingContextExt ncRef) throws Exception {
-        System.out.println("Concurrency Test Starting for BookEvent");
+        System.out.println("Concurrency Test Starting for BookAppointment");
         System.out.println("Connecting Montreal Server...");
         String AppointmentType = "Physician";
         String AppointmentID = "MTLE101020";
@@ -86,44 +86,44 @@ public class Client {
         String response = servant.addAppointment("MTLM1111", AppointmentID, AppointmentType, 2);
         System.out.println(response);
         Runnable task1 = () -> {
-            String customerID = "MTLC2345";
-//            System.out.println("Connecting Montreal Server for " + customerID);
-            String res = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Booking response for " + customerID + " " + res);
-            res = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Canceling response for " + customerID + " " + res);
+            String patientID = "MTLP2345";
+//            System.out.println("Connecting Montreal Server for " + patientID);
+            String res = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Booking response for " + patientID + " " + res);
+            res = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Canceling response for " + patientID + " " + res);
         };
         Runnable task2 = () -> {
-            String customerID = "MTLC3456";
-//            System.out.println("Connecting Montreal Server for " + customerID);
-            String res = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Booking response for " + customerID + " " + res);
-            res = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Canceling response for " + customerID + " " + res);
+            String patientID = "MTLP3456";
+//            System.out.println("Connecting Montreal Server for " + patientID);
+            String res = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Booking response for " + patientID + " " + res);
+            res = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Canceling response for " + patientID + " " + res);
         };
         Runnable task3 = () -> {
-            String customerID = "MTLC4567";
-//            System.out.println("Connecting Montreal Server for " + customerID);
-            String res = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Booking response for " + customerID + " " + res);
-            res = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Canceling response for " + customerID + " " + res);
+            String patientID = "MTLP4567";
+//            System.out.println("Connecting Montreal Server for " + patientID);
+            String res = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Booking response for " + patientID + " " + res);
+            res = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Canceling response for " + patientID + " " + res);
         };
         Runnable task4 = () -> {
-            String customerID = "MTLC6789";
-//            System.out.println("Connecting Montreal Server for " + customerID);
-            String res = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Booking response for " + customerID + " " + res);
-            res = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Canceling response for " + customerID + " " + res);
+            String patientID = "MTLP6789";
+//            System.out.println("Connecting Montreal Server for " + patientID);
+            String res = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Booking response for " + patientID + " " + res);
+            res = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Canceling response for " + patientID + " " + res);
         };
         Runnable task5 = () -> {
-            String customerID = "MTLC7890";
-//            System.out.println("Connecting Montreal Server for " + customerID);
-            String res = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Booking response for " + customerID + " " + res);
-            res = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
-            System.out.println("Canceling response for " + customerID + " " + res);
+            String patientID = "MTLP7890";
+//            System.out.println("Connecting Montreal Server for " + patientID);
+            String res = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Booking response for " + patientID + " " + res);
+            res = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
+            System.out.println("Canceling response for " + patientID + " " + res);
         };
 
         Thread thread1 = new Thread(task1);
@@ -168,8 +168,8 @@ public class Client {
         return 0;
     }
 
-    private static void patient(String customerID, NamingContextExt ncRef) throws Exception {
-        String serverID = getServerID(customerID);
+    private static void patient(String patientID, NamingContextExt ncRef) throws Exception {
+        String serverID = getServerID(patientID);
         if (serverID.equals("1")) {
             init(ncRef);
         }
@@ -184,24 +184,24 @@ public class Client {
             case PATIENT_BOOK_APPOINTMENT:
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(customerID, " attempting to bookAppointment");
-                serverResponse = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(patientID, " attempting to bookAppointment");
+                serverResponse = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(customerID, " bookAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(patientID, " bookAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
                 break;
             case PATIENT_GET_APPOINTMENT_SCHEDULE:
-                ClientLogger.clientLog(customerID, " attempting to getBookingSchedule");
-                serverResponse = servant.getAppointmentSchedule(customerID);
+                ClientLogger.clientLog(patientID, " attempting to getBookingSchedule");
+                serverResponse = servant.getAppointmentSchedule(patientID);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(customerID, " bookAppointment", " null ", serverResponse);
+                ClientLogger.clientLog(patientID, " bookAppointment", " null ", serverResponse);
                 break;
             case PATIENT_CANCEL_APPOINTMENT:
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(customerID, " attempting to cancelAppointment");
-                serverResponse = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(patientID, " attempting to cancelAppointment");
+                serverResponse = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(customerID, " bookAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(patientID, " bookAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
                 break;
             case PATIENT_SWAP_APPOINTMENT:
                 System.out.println("Please Enter the OLD Appointment to be replaced");
@@ -210,36 +210,36 @@ public class Client {
                 System.out.println("Please Enter the NEW Appointment to be replaced");
                 String newAppointmentType = promptForAppointmentType();
                 String newAppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(customerID, " attempting to swapAppointment");
-                serverResponse = servant.swapAppointment(customerID, newAppointmentID, newAppointmentType, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(patientID, " attempting to swapAppointment");
+                serverResponse = servant.swapAppointment(patientID, newAppointmentID, newAppointmentType, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(customerID, " swapAppointment", " oldAppointmentID: " + AppointmentID + " oldAppointmentType: " + AppointmentType + " newAppointmentID: " + newAppointmentID + " newAppointmentType: " + newAppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(patientID, " swapAppointment", " oldAppointmentID: " + AppointmentID + " oldAppointmentType: " + AppointmentType + " newAppointmentID: " + newAppointmentID + " newAppointmentType: " + newAppointmentType + " ", serverResponse);
                 break;
             case SHUTDOWN:
-                ClientLogger.clientLog(customerID, " attempting ORB shutdown");
+                ClientLogger.clientLog(patientID, " attempting ORB shutdown");
                 servant.shutdown();
-                ClientLogger.clientLog(customerID, " shutdown");
+                ClientLogger.clientLog(patientID, " shutdown");
                 return;
             case PATIENT_LOGOUT:
                 repeat = false;
-                ClientLogger.clientLog(customerID, " attempting to Logout");
+                ClientLogger.clientLog(patientID, " attempting to Logout");
                 init(ncRef);
                 break;
         }
         if (repeat) {
-            patient(customerID, ncRef);
+            patient(patientID, ncRef);
         }
     }
 
-    private static void admin(String AppointmentManagerID, NamingContextExt ncRef) throws Exception {
-        String serverID = getServerID(AppointmentManagerID);
+    private static void admin(String AppointmentAdminID, NamingContextExt ncRef) throws Exception {
+        String serverID = getServerID(AppointmentAdminID);
         if (serverID.equals("1")) {
             init(ncRef);
         }
         ServerObjectInterface servant = ServerObjectInterfaceHelper.narrow(ncRef.resolve_str(serverID));
         boolean repeat = true;
         printMenu(USER_TYPE_ADMIN);
-        String customerID;
+        String patientID;
         String AppointmentType;
         String AppointmentID;
         String serverResponse;
@@ -250,85 +250,85 @@ public class Client {
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
                 capacity = promptForCapacity();
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to addAppointment");
-                serverResponse = servant.addAppointment(AppointmentManagerID, AppointmentID, AppointmentType, capacity);
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to addAppointment");
+                serverResponse = servant.addAppointment(AppointmentAdminID, AppointmentID, AppointmentType, capacity);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " addAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " AppointmentCapacity: " + capacity + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " addAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " AppointmentCapacity: " + capacity + " ", serverResponse);
                 break;
             case ADMIN_REMOVE_APPOINTMENT:
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to removeAppointment");
-                serverResponse = servant.removeAppointment(AppointmentManagerID, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to removeAppointment");
+                serverResponse = servant.removeAppointment(AppointmentAdminID, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " removeAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " removeAppointment", " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
                 break;
             case ADMIN_LIST_APPOINTMENT_AVAILABILITY:
                 AppointmentType = promptForAppointmentType();
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to listAppointmentAvailability");
-                serverResponse = servant.listAppointmentAvailability(AppointmentManagerID, AppointmentType);
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to listAppointmentAvailability");
+                serverResponse = servant.listAppointmentAvailability(AppointmentAdminID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " listAppointmentAvailability", " AppointmentType: " + AppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " listAppointmentAvailability", " AppointmentType: " + AppointmentType + " ", serverResponse);
                 break;
             case ADMIN_BOOK_APPOINTMENT:
-                customerID = askForCustomerIDFromManager(AppointmentManagerID.substring(0, 3));
+                patientID = askForpatientIDFromAdmin(AppointmentAdminID.substring(0, 3));
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to bookAppointment");
-                serverResponse = servant.bookAppointment(customerID, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to bookAppointment");
+                serverResponse = servant.bookAppointment(patientID, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " bookAppointment", " customerID: " + customerID + " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " bookAppointment", " patientID: " + patientID + " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
                 break;
             case ADMIN_GET_APPOINTMENT_SCHEDULE:
-                customerID = askForCustomerIDFromManager(AppointmentManagerID.substring(0, 3));
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to getBookingSchedule");
-                serverResponse = servant.getAppointmentSchedule(customerID);
+                patientID = askForpatientIDFromAdmin(AppointmentAdminID.substring(0, 3));
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to getBookingSchedule");
+                serverResponse = servant.getAppointmentSchedule(patientID);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " getBookingSchedule", " customerID: " + customerID + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " getBookingSchedule", " patientID: " + patientID + " ", serverResponse);
                 break;
             case ADMIN_CANCEL_APPOINTMENT:
-                customerID = askForCustomerIDFromManager(AppointmentManagerID.substring(0, 3));
+                patientID = askForpatientIDFromAdmin(AppointmentAdminID.substring(0, 3));
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to cancelAppointment");
-                serverResponse = servant.cancelAppointment(customerID, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to cancelAppointment");
+                serverResponse = servant.cancelAppointment(patientID, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " cancelAppointment", " customerID: " + customerID + " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " cancelAppointment", " patientID: " + patientID + " AppointmentID: " + AppointmentID + " AppointmentType: " + AppointmentType + " ", serverResponse);
                 break;
             case ADMIN_SWAP_APPOINTMENT:
-                customerID = askForCustomerIDFromManager(AppointmentManagerID.substring(0, 3));
+                patientID = askForpatientIDFromAdmin(AppointmentAdminID.substring(0, 3));
                 System.out.println("Please Enter the OLD Appointment to be swapped");
                 AppointmentType = promptForAppointmentType();
                 AppointmentID = promptForAppointmentID();
                 System.out.println("Please Enter the NEW Appointment to be swapped");
                 String newAppointmentType = promptForAppointmentType();
                 String newAppointmentID = promptForAppointmentID();
-                ClientLogger.clientLog(AppointmentManagerID, " attempting to swapAppointment");
-                serverResponse = servant.swapAppointment(customerID, newAppointmentID, newAppointmentType, AppointmentID, AppointmentType);
+                ClientLogger.clientLog(AppointmentAdminID, " attempting to swapAppointment");
+                serverResponse = servant.swapAppointment(patientID, newAppointmentID, newAppointmentType, AppointmentID, AppointmentType);
                 System.out.println(serverResponse);
-                ClientLogger.clientLog(AppointmentManagerID, " swapAppointment", " customerID: " + customerID + " oldAppointmentID: " + AppointmentID + " oldAppointmentType: " + AppointmentType + " newAppointmentID: " + newAppointmentID + " newAppointmentType: " + newAppointmentType + " ", serverResponse);
+                ClientLogger.clientLog(AppointmentAdminID, " swapAppointment", " patientID: " + patientID + " oldAppointmentID: " + AppointmentID + " oldAppointmentType: " + AppointmentType + " newAppointmentID: " + newAppointmentID + " newAppointmentType: " + newAppointmentType + " ", serverResponse);
                 break;
             case SHUTDOWN:
-                ClientLogger.clientLog(AppointmentManagerID, " attempting ORB shutdown");
+                ClientLogger.clientLog(AppointmentAdminID, " attempting ORB shutdown");
                 servant.shutdown();
-                ClientLogger.clientLog(AppointmentManagerID, " shutdown");
+                ClientLogger.clientLog(AppointmentAdminID, " shutdown");
                 return;
             case ADMIN_LOGOUT:
                 repeat = false;
-                ClientLogger.clientLog(AppointmentManagerID, "attempting to Logout");
+                ClientLogger.clientLog(AppointmentAdminID, "attempting to Logout");
                 init(ncRef);
                 break;
         }
         if (repeat) {
-            admin(AppointmentManagerID, ncRef);
+            admin(AppointmentAdminID, ncRef);
         }
     }
 
-    private static String askForCustomerIDFromManager(String branchAcronym) {
-        System.out.println("Please enter a customerID(Within " + branchAcronym + " Server):");
+    private static String askForpatientIDFromAdmin(String branchAcronym) {
+        System.out.println("Please enter a patientID(Within " + branchAcronym + " Server):");
         String userID = input.next().trim().toUpperCase();
         if (checkUserType(userID) != USER_TYPE_PATIENT || !userID.substring(0, 3).equals(branchAcronym)) {
-            return askForCustomerIDFromManager(branchAcronym);
+            return askForpatientIDFromAdmin(branchAcronym);
         } else {
             return userID;
         }
