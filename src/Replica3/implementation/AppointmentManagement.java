@@ -19,52 +19,52 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 	}
 
 	@Override
-	public String addEvent(String eventID, String eventType,
+	public String addAppointment(String appointmentID, String appointmentType,
 			int bookingCapacity, String serv) throws RemoteException {
 
 		if (serv.equalsIgnoreCase("MTL")) {
 			Montreal mn = new Montreal();
-			String var = mn.getHashMap(eventType);
-			// mn.addHashMap(var, eventID, bookingCapacity);
-			return (mn.addHashMap(var, eventID, bookingCapacity));
+			String var = mn.getHashMap(appointmentType);
+			// mn.addHashMap(var, appointmentID, bookingCapacity);
+			return (mn.addHashMap(var, appointmentID, bookingCapacity));
 		} else if (serv.equalsIgnoreCase("QUE")) {
 			Quebec mn = new Quebec();
 
-			String var = mn.getHashMap(eventType);
-			// mn.addHashMap(var, eventID, bookingCapacity);
-			return (mn.addHashMap(var, eventID, bookingCapacity));
+			String var = mn.getHashMap(appointmentType);
+			// mn.addHashMap(var, appointmentID, bookingCapacity);
+			return (mn.addHashMap(var, appointmentID, bookingCapacity));
 		} else if (serv.equalsIgnoreCase("SHE")) {
 			Sherbrook mn = new Sherbrook();
-			String var = mn.getHashMap(eventType);
-			// mn.addHashMap(var, eventID, bookingCapacity);
-			return (mn.addHashMap(var, eventID, bookingCapacity));
+			String var = mn.getHashMap(appointmentType);
+			// mn.addHashMap(var, appointmentID, bookingCapacity);
+			return (mn.addHashMap(var, appointmentID, bookingCapacity));
 		}
-		return CommonOutput.addEventOutput(false, null);
+		return CommonOutput.addAppointmentOutput(false, null);
 
 	}
 
 	@Override
-	public String removeEvent(String eventID, String eventType, String serv) throws RemoteException {
+	public String removeAppointment(String appointmentID, String appointmentType, String serv) throws RemoteException {
 
 		if (serv.equalsIgnoreCase("MTL")) {
 			Montreal mn = new Montreal();
-			String var = mn.getHashMap(eventType);
-			return mn.removeHashMap(var, eventID);
+			String var = mn.getHashMap(appointmentType);
+			return mn.removeHashMap(var, appointmentID);
 		} else if (serv.equalsIgnoreCase("QUE")) {
 			Quebec mn = new Quebec();
-			String var = mn.getHashMap(eventType);
-			return mn.removeHashMap(var, eventID);
+			String var = mn.getHashMap(appointmentType);
+			return mn.removeHashMap(var, appointmentID);
 		} else if (serv.equalsIgnoreCase("SHE")) {
 			Sherbrook mn = new Sherbrook();
-			String var = mn.getHashMap(eventType);
-			return mn.removeHashMap(var, eventID);
+			String var = mn.getHashMap(appointmentType);
+			return mn.removeHashMap(var, appointmentID);
 		}
-		return CommonOutput.removeEventOutput(false, null);
+		return CommonOutput.removeAppointmentOutput(false, null);
 
 	}
 
 	@Override
-	public String listEventAvailability(String eventType, String serv) throws RemoteException {
+	public String listAppointmentAvailability(String appointmentType, String serv) throws RemoteException {
 
 		String str = "";
 		String temp1 = "";
@@ -73,7 +73,7 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 
 		if (serv.equalsIgnoreCase("MTL")) {
 			Montreal mn = new Montreal();
-			String var = mn.getHashMap(eventType)+"display";
+			String var = mn.getHashMap(appointmentType)+"display";
 			
 			temp1 = mn.display(var.substring(0, 1));
 
@@ -89,11 +89,11 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			str=str1+temp2;*/
 			//str=temp1.concat(temp2).concat(temp3);
 			
-			return  CommonOutput.listEventAvailabilityOutput(true,al , null);
+			return  CommonOutput.listAppointmentAvailabilityOutput(true,al , null);
 
 		} else if (serv.equalsIgnoreCase("QUE")) {
 			Quebec mn = new Quebec();
-			String var = mn.getHashMap(eventType)+"display";
+			String var = mn.getHashMap(appointmentType)+"display";
 			temp1 = mn.display(var.substring(0, 1));
 
 			temp2 = mn.UDPConnect(7000, var);
@@ -109,10 +109,10 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			str=str1+temp2;*/
 			//str=temp1.concat(temp2).concat(temp3);
 			
-			return  CommonOutput.listEventAvailabilityOutput(true,al , null);
+			return  CommonOutput.listAppointmentAvailabilityOutput(true,al , null);
 		} else if (serv.equalsIgnoreCase("SHE")) {
 			Sherbrook mn = new Sherbrook();
-			String var = mn.getHashMap(eventType)+"display";
+			String var = mn.getHashMap(appointmentType)+"display";
 			temp1 = mn.display(var.substring(0, 1));
 
 			temp2 = mn.UDPConnect(7001, var);
@@ -128,7 +128,7 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			str=str1+temp2;*/
 			//str=temp1.concat(temp2).concat(temp3);
 			
-			return  CommonOutput.listEventAvailabilityOutput(true,al , null);
+			return  CommonOutput.listAppointmentAvailabilityOutput(true,al , null);
 		}
 
 		else
@@ -137,69 +137,69 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		str=str1+temp2;*/
 		//str=temp1.concat(temp2).concat(temp3);
 		
-		return  CommonOutput.listEventAvailabilityOutput(false,null , null);
+		return  CommonOutput.listAppointmentAvailabilityOutput(false,null , null);
 	}
 
 	@Override
-	public String bookEvent(String customerID, String eventID,
-			String eventType, String serv) throws RemoteException {
-		char[] ch = eventID.toCharArray();
+	public String bookAppointment(String customerID, String appointmentID,
+			String appointmentType, String serv) throws RemoteException {
+		char[] ch = appointmentID.toCharArray();
 		char[] ch2 = { ch[0], ch[1], ch[2] };
 		String bookingServ = new String(ch2);
 
 		if (serv.equalsIgnoreCase("MTL")) {
 			Montreal mn = new Montreal();
-			String var = mn.getHashMap(eventType)+"booked "+customerID+eventID;
+			String var = mn.getHashMap(appointmentType)+"booked "+customerID+appointmentID;
 
 			if (serv.equalsIgnoreCase(bookingServ)) {
-				if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {//it checks both condition capacity and existence
-					String r = mn.bookedEvent(var.substring(0, 1),eventID, customerID,eventType);
+					String r = mn.bookedAppointment(var.substring(0, 1),appointmentID, customerID,appointmentType);
 					if(r.contains("SecondBooking")){
-						return CommonOutput.bookEventOutput(false, null);
+						return CommonOutput.bookAppointmentOutput(false, null);
 					}
-					return CommonOutput.bookEventOutput(true, null);
-				} else if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+					return CommonOutput.bookAppointmentOutput(true, null);
+				} else if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"No Capacity ")) {//it checks both condition capacity and existence
-					 return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_no_capacity);
+					 return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_no_capacity);
 				} else{
-					 return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_no_such_event);
+					 return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_no_such_appointment);
 				}
 			}
 			else if(bookingServ.equalsIgnoreCase("QUE")){
-				String count=mn.UDPConnect(7001, ("checkCount"+customerID+ eventID));
-				String count1=mn.UDPConnect(7002, ("checkCount"+customerID+ eventID));
+				String count=mn.UDPConnect(7001, ("checkCount"+customerID+ appointmentID));
+				String count1=mn.UDPConnect(7002, ("checkCount"+customerID+ appointmentID));
 				int counter=Integer.parseInt(count.substring(0, 1))+Integer.parseInt(count1.substring(0, 1));
 				if(counter==3){
 					//return "Cannot book.You already have 3 booking in the servers";
-					return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_weekly_limit);
+					return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_weekly_limit);
 				}
-				/*if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				/*if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {*/
 					String temp2;
 					temp2 = mn.UDPConnect(7001, var);
 					return temp2.trim();
 				/*} else {
-					return ("No such event is available");
+					return ("No such appointment is available");
 				}*/
 				
 				
 			}else if(bookingServ.equalsIgnoreCase("SHE")){
-				String count=mn.UDPConnect(7001, ("checkCount"+customerID+ eventID));
-				String count1=mn.UDPConnect(7002, ("checkCount"+customerID+ eventID));
+				String count=mn.UDPConnect(7001, ("checkCount"+customerID+ appointmentID));
+				String count1=mn.UDPConnect(7002, ("checkCount"+customerID+ appointmentID));
 				int counter=Integer.parseInt(count.substring(0, 1))+Integer.parseInt(count1.substring(0, 1));
 				if(counter==3){
-					return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_weekly_limit);
+					return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_weekly_limit);
 				}
 				
 				
-			/*	if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+			/*	if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {*/
 					String temp3;
 					temp3 = mn.UDPConnect(7002, var);
 					return temp3.trim();
 				/*} else {
-					return ("No such event is available");
+					return ("No such appointment is available");
 				}*/
 			}
 			
@@ -207,53 +207,53 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		} else if (serv.equalsIgnoreCase("QUE")) {
 			Quebec mn = new Quebec();
 
-			String var = mn.getHashMap(eventType)+"booked "+customerID+eventID;
+			String var = mn.getHashMap(appointmentType)+"booked "+customerID+appointmentID;
 			if (serv.equalsIgnoreCase(bookingServ)) {
-				if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {
-					String r = mn.bookedEvent(var.substring(0, 1),eventID, customerID,eventType);
+					String r = mn.bookedAppointment(var.substring(0, 1),appointmentID, customerID,appointmentType);
 					if(r.contains("SecondBooking")){
-						return CommonOutput.bookEventOutput(false, null);
+						return CommonOutput.bookAppointmentOutput(false, null);
 					}
-					return CommonOutput.bookEventOutput(true, null);
-				} else if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+					return CommonOutput.bookAppointmentOutput(true, null);
+				} else if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"No Capacity ")) {//it checks both condition capacity and existence
-					 return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_no_capacity);
+					 return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_no_capacity);
 				} else{
-					 return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_no_such_event);
+					 return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_no_such_appointment);
 				}
 			}
 			else if(bookingServ.equalsIgnoreCase("MTL")){
-				String count=(mn.UDPConnect(7000, ("checkCount"+customerID+ eventID)));
-				String count1=(mn.UDPConnect(7002, ("checkCount"+customerID+ eventID)));
+				String count=(mn.UDPConnect(7000, ("checkCount"+customerID+ appointmentID)));
+				String count1=(mn.UDPConnect(7002, ("checkCount"+customerID+ appointmentID)));
 				int counter=Integer.parseInt(count.substring(0, 1))+Integer.parseInt(count1.substring(0, 1));
 				if(counter==3){
-					return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_weekly_limit);
+					return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_weekly_limit);
 				}
 				
-		/*		if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+		/*		if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {*/
 					String temp2;
 					
 					temp2 = mn.UDPConnect(7000, var);
 					return temp2.trim();
 				/*} else {
-					return ("No such event is available");
+					return ("No such appointment is available");
 				}*/
 			}else if(bookingServ.equalsIgnoreCase("SHE")){
-				String count=mn.UDPConnect(7000, ("checkCount"+customerID+ eventID));
-				String count1=mn.UDPConnect(7002, ("checkCount"+customerID+ eventID));
+				String count=mn.UDPConnect(7000, ("checkCount"+customerID+ appointmentID));
+				String count1=mn.UDPConnect(7002, ("checkCount"+customerID+ appointmentID));
 				int counter=Integer.parseInt(count.substring(0, 1))+Integer.parseInt(count1.substring(0, 1));
 				if(counter==3){
-					return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_weekly_limit);
+					return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_weekly_limit);
 				}
-				/*if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				/*if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {*/
 					String temp3;
 					temp3 = mn.UDPConnect(7002, var);
 					return temp3.trim();
 				/*} else {
-					return ("No such event is available");
+					return ("No such appointment is available");
 				}*/
 				
 			}
@@ -261,59 +261,59 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		} else if (serv.equalsIgnoreCase("SHE")) {
 			Sherbrook mn = new Sherbrook();
 
-			String var = mn.getHashMap(eventType)+"booked "+customerID+eventID;
+			String var = mn.getHashMap(appointmentType)+"booked "+customerID+appointmentID;
 			if (serv.equalsIgnoreCase(bookingServ)) {
-				if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {
-					String r = mn.bookedEvent(var.substring(0, 1),eventID, customerID,eventType);
+					String r = mn.bookedAppointment(var.substring(0, 1),appointmentID, customerID,appointmentType);
 					if(r.contains("SecondBooking")){
-						return CommonOutput.bookEventOutput(false, null);
+						return CommonOutput.bookAppointmentOutput(false, null);
 					}
-					return CommonOutput.bookEventOutput(true, null);
-				}else if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+					return CommonOutput.bookAppointmentOutput(true, null);
+				}else if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"No Capacity ")) {//it checks both condition capacity and existence
-					 return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_no_capacity);
+					 return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_no_capacity);
 				} else{
-					 return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_no_such_event);
+					 return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_no_such_appointment);
 				}
 			}
 			else if(bookingServ.equalsIgnoreCase("QUE")){
-				String count=mn.UDPConnect(7000, ("checkCount"+customerID+ eventID));
-				String count1=mn.UDPConnect(7001, ("checkCount"+customerID+ eventID));
+				String count=mn.UDPConnect(7000, ("checkCount"+customerID+ appointmentID));
+				String count1=mn.UDPConnect(7001, ("checkCount"+customerID+ appointmentID));
 				int counter=Integer.parseInt(count.substring(0, 1))+Integer.parseInt(count1.substring(0, 1));
 				if(counter==3){
-					return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_weekly_limit);
+					return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_weekly_limit);
 				}
 				/*
-				if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {*/
 					String temp2;
 					temp2 = mn.UDPConnect(7001, var);
 					return temp2.trim();
 				/*} else {
-					return ("No such event is available");
+					return ("No such appointment is available");
 				}*/
 				
 			}else if(bookingServ.equalsIgnoreCase("MTL")){
-				String count=mn.UDPConnect(7000, ("checkCount"+customerID+ eventID));
-				String count1=mn.UDPConnect(7001, ("checkCount"+customerID+ eventID));
+				String count=mn.UDPConnect(7000, ("checkCount"+customerID+ appointmentID));
+				String count1=mn.UDPConnect(7001, ("checkCount"+customerID+ appointmentID));
 				int counter=Integer.parseInt(count.substring(0, 1))+Integer.parseInt(count1.substring(0, 1));
 				if(counter==3){
-					return CommonOutput.bookEventOutput(false, CommonOutput.bookEvent_fail_weekly_limit);
+					return CommonOutput.bookAppointmentOutput(false, CommonOutput.bookAppointment_fail_weekly_limit);
 				}
-				/*if (mn.checkAvailabilityOfEvent(var.substring(0, 1), eventID).equalsIgnoreCase(
+				/*if (mn.checkAvailabilityOfAppointment(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"Available ")) {*/
 					String temp3;
 					temp3 = mn.UDPConnect(7000, var);
 					return temp3.trim();
 			/*	} else {
-					return ("No such event is available");
+					return ("No such appointment is available");
 				}*/
 				
 			}
 			
 		}
-		return CommonOutput.bookEventOutput(false, null);
+		return CommonOutput.bookAppointmentOutput(false, null);
 
 	}
 
@@ -430,29 +430,29 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 	}
 
 	@Override
-	public String cancelEvent(String customerID, String eventID,
-			String eventType, String serv) throws RemoteException {
+	public String cancelAppointment(String customerID, String appointmentID,
+			String appointmentType, String serv) throws RemoteException {
 
-		char[] ch = eventID.toCharArray();
+		char[] ch = appointmentID.toCharArray();
 		char[] ch2 = { ch[0], ch[1], ch[2] };
 		String bookingServ = new String(ch2);
 
 		if (serv.equalsIgnoreCase("MTL")) {
 			Montreal mn = new Montreal();
-			String var = mn.getHashMap(eventType)+"cancel "+customerID+eventID;
+			String var = mn.getHashMap(appointmentType)+"cancel "+customerID+appointmentID;
 
 			if (serv.equalsIgnoreCase(bookingServ)) {
 				
-				if (mn.checkAvailabilityOfEvent1(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment1(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"available ")) {
-					if (mn.checkUserBooking(eventID, customerID,eventType)) {
-						String c = mn.canceledEvent(var.substring(0, 1),eventID, customerID,eventType);
+					if (mn.checkUserBooking(appointmentID, customerID,appointmentType)) {
+						String c = mn.canceledAppointment(var.substring(0, 1),appointmentID, customerID,appointmentType);
 
-						 return CommonOutput.cancelEventOutput(true, null);
+						 return CommonOutput.cancelAppointmentOutput(true, null);
 					} else
-						return CommonOutput.cancelEventOutput(false, CommonOutput.cancelEvent_fail_not_registered_in_event);
+						return CommonOutput.cancelAppointmentOutput(false, CommonOutput.cancelAppointment_fail_not_registered_in_appointment);
 				} else {
-					return CommonOutput.cancelEventOutput(false, CommonOutput.cancelEvent_fail_no_such_event);
+					return CommonOutput.cancelAppointmentOutput(false, CommonOutput.cancelAppointment_fail_no_such_appointment);
 				}
 			}
 			else if(bookingServ.equalsIgnoreCase("QUE")){
@@ -472,18 +472,18 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		} else if (serv.equalsIgnoreCase("QUE")) {
 			Quebec mn = new Quebec();
 
-			String var = mn.getHashMap(eventType)+"cancel "+customerID+eventID;
+			String var = mn.getHashMap(appointmentType)+"cancel "+customerID+appointmentID;
 			if (serv.equalsIgnoreCase(bookingServ)) {
-				if (mn.checkAvailabilityOfEvent1(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment1(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"available ")) {
-					if (mn.checkUserBooking(eventID, customerID,eventType)) {
-						String c = mn.canceledEvent(var.substring(0, 1),eventID, customerID,eventType);
+					if (mn.checkUserBooking(appointmentID, customerID,appointmentType)) {
+						String c = mn.canceledAppointment(var.substring(0, 1),appointmentID, customerID,appointmentType);
 
-						 return CommonOutput.cancelEventOutput(true, null);
+						 return CommonOutput.cancelAppointmentOutput(true, null);
 					} else
-						return CommonOutput.cancelEventOutput(false, CommonOutput.cancelEvent_fail_not_registered_in_event);
+						return CommonOutput.cancelAppointmentOutput(false, CommonOutput.cancelAppointment_fail_not_registered_in_appointment);
 				} else {
-					return CommonOutput.cancelEventOutput(false, CommonOutput.cancelEvent_fail_no_such_event);
+					return CommonOutput.cancelAppointmentOutput(false, CommonOutput.cancelAppointment_fail_no_such_appointment);
 				}
 			}
 			else if(bookingServ.equalsIgnoreCase("MTL")){
@@ -502,18 +502,18 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		} else if (serv.equalsIgnoreCase("SHE")) {
 			Sherbrook mn = new Sherbrook();
 
-			String var = mn.getHashMap(eventType)+"cancel "+customerID+eventID;
+			String var = mn.getHashMap(appointmentType)+"cancel "+customerID+appointmentID;
 			if (serv.equalsIgnoreCase(bookingServ)) {
-				if (mn.checkAvailabilityOfEvent1(var.substring(0, 1), eventID).equalsIgnoreCase(
+				if (mn.checkAvailabilityOfAppointment1(var.substring(0, 1), appointmentID).equalsIgnoreCase(
 						"available ")) {
-					if (mn.checkUserBooking(eventID, customerID,eventType)) {
-						String c = mn.canceledEvent(var.substring(0, 1),eventID, customerID,eventType);
+					if (mn.checkUserBooking(appointmentID, customerID,appointmentType)) {
+						String c = mn.canceledAppointment(var.substring(0, 1),appointmentID, customerID,appointmentType);
 
-						 return CommonOutput.cancelEventOutput(true, null);
+						 return CommonOutput.cancelAppointmentOutput(true, null);
 					} else
-						return CommonOutput.cancelEventOutput(false, CommonOutput.cancelEvent_fail_not_registered_in_event);
+						return CommonOutput.cancelAppointmentOutput(false, CommonOutput.cancelAppointment_fail_not_registered_in_appointment);
 				} else {
-					return CommonOutput.cancelEventOutput(false, CommonOutput.cancelEvent_fail_no_such_event);
+					return CommonOutput.cancelAppointmentOutput(false, CommonOutput.cancelAppointment_fail_no_such_appointment);
 				}
 			}
 			else if(bookingServ.equalsIgnoreCase("QUE")){
@@ -530,47 +530,47 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			}
 			
 		}
-		return CommonOutput.cancelEventOutput(false, null);
+		return CommonOutput.cancelAppointmentOutput(false, null);
 		
 
 	}
-	public String swapEvent(String customerID, String newEventID,
-			String newEventType, String oldEventID, String oldEventType,
+	public String swapAppointment(String customerID, String newAppointmentID,
+			String newAppointmentType, String oldAppointmentID, String oldAppointmentType,
 			String serv) throws RemoteException {
 		AppointmentManagement d1 = new AppointmentManagement();
 		AppointmentManagement d2 = new AppointmentManagement();
 		StringBuffer str = new StringBuffer();
 
-		char[] ch = newEventID.toCharArray();
+		char[] ch = newAppointmentID.toCharArray();
 		char[] ch2 = { ch[0], ch[1], ch[2] };
 		String newServ = new String(ch2);
 
-		char[] ch1 = oldEventID.toCharArray();
+		char[] ch1 = oldAppointmentID.toCharArray();
 		char[] ch21 = { ch1[0], ch1[1], ch1[2] };
 		String oldServ = new String(ch21);
 
-		String Lowest_EventId = new String();
+		String Lowest_AppointmentId = new String();
 
-		int month1 = Integer.parseInt(newEventID.substring(6, 8));
-		int month2 = Integer.parseInt(oldEventID.substring(6, 8));
+		int month1 = Integer.parseInt(newAppointmentID.substring(6, 8));
+		int month2 = Integer.parseInt(oldAppointmentID.substring(6, 8));
 		int month = month1 - month2;
-		int date1 = Integer.parseInt(newEventID.substring(4, 6));
-		int date2 = Integer.parseInt(oldEventID.substring(4, 6));
+		int date1 = Integer.parseInt(newAppointmentID.substring(4, 6));
+		int date2 = Integer.parseInt(oldAppointmentID.substring(4, 6));
 		int date = 0;
 		if (month == 0) {
 			date = date1 - date2;
 			if (date < 0) {
 				date = date * -1;
-				Lowest_EventId = newEventID;
+				Lowest_AppointmentId = newAppointmentID;
 			} else {
-				Lowest_EventId = oldEventID;
+				Lowest_AppointmentId = oldAppointmentID;
 			}
 		} else if (month == 1) {
 			date = (date1 + 30) - date2;
-			Lowest_EventId = oldEventID;
+			Lowest_AppointmentId = oldAppointmentID;
 		} else if (month == -1) {
 			date = (date2 + 30) - date1;
-			Lowest_EventId = newEventID;
+			Lowest_AppointmentId = newAppointmentID;
 		}
 
 		int numberOfBooking = 0;
@@ -579,22 +579,22 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			Montreal mn = new Montreal();
 			if (oldServ.equalsIgnoreCase("MTL")) {
 
-				String var = mn.getHashMap(oldEventType);
+				String var = mn.getHashMap(oldAppointmentType);
 
 				// String variable="isBooked"+customerID;
-				String bookingexistence = mn.isbooked(customerID,oldEventType);
+				String bookingexistence = mn.isbooked(customerID,oldAppointmentType);
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 
-				if (mn.checkAvailabilityOfEvent(var, oldEventID)
+				if (mn.checkAvailabilityOfAppointment(var, oldAppointmentID)
 						.equalsIgnoreCase("Available ")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 
@@ -602,46 +602,46 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 				}
 
 			} else if (oldServ.equalsIgnoreCase("QUE")) {
-				String var = oldEventType.substring(0, 1) + "getExistence"
-						+ oldEventID;
+				String var = oldAppointmentType.substring(0, 1) + "getExistence"
+						+ oldAppointmentID;
 				String ans = (mn.UDPConnect(7001, var));
 
-				String variable = "isBooked" + customerID +oldEventType;
+				String variable = "isBooked" + customerID +oldAppointmentType;
 				String bookingexistence = (mn.UDPConnect(7001, variable))
 						;
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
 				}
 
 			} else if (oldServ.equalsIgnoreCase("SHE")) {
-				String var = oldEventType.substring(0, 1) + "getExistence"
-						+ oldEventID;
+				String var = oldAppointmentType.substring(0, 1) + "getExistence"
+						+ oldAppointmentID;
 				String ans = (mn.UDPConnect(7002, var));
 
-				String variable = "isBooked" + customerID+oldEventType;
+				String variable = "isBooked" + customerID+oldAppointmentType;
 				String bookingexistence = (mn.UDPConnect(7002, variable))
 						;
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
@@ -651,16 +651,16 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 
 			if (newServ.equalsIgnoreCase("MTL")) {
 
-				String var = mn.getHashMap(newEventType);
+				String var = mn.getHashMap(newAppointmentType);
 
-				if (mn.checkAvailabilityOfEvent(var, newEventID)
+				if (mn.checkAvailabilityOfAppointment(var, newAppointmentID)
 						.equalsIgnoreCase("Available ")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 
@@ -668,32 +668,32 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 				}
 
 			} else if (newServ.equalsIgnoreCase("QUE")) {
-				String var = newEventType.substring(0, 1) + "getExistence"
-						+ newEventID;
+				String var = newAppointmentType.substring(0, 1) + "getExistence"
+						+ newAppointmentID;
 				String ans = (mn.UDPConnect(7001, var));
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
 				}
 
 			} else if (newServ.equalsIgnoreCase("SHE")) {
-				String var = newEventType.substring(0, 1) + "getExistence"
-						+ newEventID;
+				String var = newAppointmentType.substring(0, 1) + "getExistence"
+						+ newAppointmentID;
 				String ans = (mn.UDPConnect(7002, var));
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
@@ -704,22 +704,22 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			Quebec mn = new Quebec();
 			if (oldServ.equalsIgnoreCase("QUE")) {
 
-				String var = mn.getHashMap(oldEventType);
+				String var = mn.getHashMap(oldAppointmentType);
 
 				// String variable="isBooked"+customerID;
-				String bookingexistence = mn.isbooked(customerID,oldEventType);
+				String bookingexistence = mn.isbooked(customerID,oldAppointmentType);
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 
-				if (mn.checkAvailabilityOfEvent(var, oldEventID)
+				if (mn.checkAvailabilityOfAppointment(var, oldAppointmentID)
 						.equalsIgnoreCase("Available ")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 
@@ -727,46 +727,46 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 				}
 
 			} else if (oldServ.equalsIgnoreCase("MTL")) {
-				String var = oldEventType.substring(0, 1) + "getExistence"
-						+ oldEventID;
+				String var = oldAppointmentType.substring(0, 1) + "getExistence"
+						+ oldAppointmentID;
 				String ans = (mn.UDPConnect(7000, var));
 				//String test2=ans.substring(0, 10);
-				String variable = "isBooked" + customerID+oldEventType;
+				String variable = "isBooked" + customerID+oldAppointmentType;
 				String bookingexistence = (mn.UDPConnect(7000, variable))
 						;
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
 				}
 
 			} else if (oldServ.equalsIgnoreCase("SHE")) {
-				String var = oldEventType.substring(0, 1) + "getExistence"
-						+ oldEventID;
+				String var = oldAppointmentType.substring(0, 1) + "getExistence"
+						+ oldAppointmentID;
 				String ans = (mn.UDPConnect(7002, var));
 
-				String variable = "isBooked" + customerID+oldEventType;
+				String variable = "isBooked" + customerID+oldAppointmentType;
 				String bookingexistence = (mn.UDPConnect(7002, variable))
 						;
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
@@ -776,16 +776,16 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 
 			if (newServ.equalsIgnoreCase("QUE")) {
 
-				String var = mn.getHashMap(newEventType);
+				String var = mn.getHashMap(newAppointmentType);
 
-				if (mn.checkAvailabilityOfEvent(var, newEventID)
+				if (mn.checkAvailabilityOfAppointment(var, newAppointmentID)
 						.equalsIgnoreCase("Available ")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 
@@ -793,32 +793,32 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 				}
 
 			} else if (newServ.equalsIgnoreCase("MTL")) {
-				String var = newEventType.substring(0, 1) + "getExistence"
-						+ newEventID;
+				String var = newAppointmentType.substring(0, 1) + "getExistence"
+						+ newAppointmentID;
 				String ans = (mn.UDPConnect(7000, var));
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
 				}
 
 			} else if (newServ.equalsIgnoreCase("SHE")) {
-				String var = newEventType.substring(0, 1) + "getExistence"
-						+ newEventID;
+				String var = newAppointmentType.substring(0, 1) + "getExistence"
+						+ newAppointmentID;
 				String ans = (mn.UDPConnect(7002, var));
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7002, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
@@ -829,22 +829,22 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 			Sherbrook mn = new Sherbrook();
 			if (oldServ.equalsIgnoreCase("SHE")) {
 
-				String var = mn.getHashMap(oldEventType);
+				String var = mn.getHashMap(oldAppointmentType);
 
 				// String variable="isBooked"+customerID;
-				String bookingexistence = mn.isbooked(customerID,oldEventType);
+				String bookingexistence = mn.isbooked(customerID,oldAppointmentType);
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 
-				if (mn.checkAvailabilityOfEvent(var, oldEventID)
+				if (mn.checkAvailabilityOfAppointment(var, oldAppointmentID)
 						.equalsIgnoreCase("Available ")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 
@@ -852,46 +852,46 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 				}
 
 			} else if (oldServ.equalsIgnoreCase("MTL")) {
-				String var = oldEventType.substring(0, 1) + "getExistence"
-						+ oldEventID;
+				String var = oldAppointmentType.substring(0, 1) + "getExistence"
+						+ oldAppointmentID;
 				String ans = (mn.UDPConnect(7000, var));
 
-				String variable = "isBooked" + customerID+oldEventType;
+				String variable = "isBooked" + customerID+oldAppointmentType;
 				String bookingexistence = (mn.UDPConnect(7000, variable))
 						;
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
 				}
 
 			} else if (oldServ.equalsIgnoreCase("QUE")) {
-				String var = oldEventType.substring(0, 1) + "getExistence"
-						+ oldEventID;
+				String var = oldAppointmentType.substring(0, 1) + "getExistence"
+						+ oldAppointmentID;
 				String ans = (mn.UDPConnect(7001, var));
 
-				String variable = "isBooked" + customerID+oldEventType;
+				String variable = "isBooked" + customerID+oldAppointmentType;
 				String bookingexistence = (mn.UDPConnect(7001, variable))
 						;
 				if (bookingexistence.contains("false")) {
-					return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_not_registered_in_event);
+					return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_not_registered_in_appointment);
 				}
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(oldEventID)) {
+					if (Lowest_AppointmentId.equals(oldAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
@@ -901,16 +901,16 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 
 			if (newServ.equalsIgnoreCase("SHE")) {
 
-				String var = mn.getHashMap(newEventType);
+				String var = mn.getHashMap(newAppointmentType);
 
-				if (mn.checkAvailabilityOfEvent(var, newEventID)
+				if (mn.checkAvailabilityOfAppointment(var, newAppointmentID)
 						.equalsIgnoreCase("Available ")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 
@@ -918,32 +918,32 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 				}
 
 			} else if (newServ.equalsIgnoreCase("MTL")) {
-				String var = newEventType.substring(0, 1) + "getExistence"
-						+ newEventID;
+				String var = newAppointmentType.substring(0, 1) + "getExistence"
+						+ newAppointmentID;
 				String ans = (mn.UDPConnect(7000, var));
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
 				}
 
 			} else if (newServ.equalsIgnoreCase("QUE")) {
-				String var = newEventType.substring(0, 1) + "getExistence"
-						+ newEventID;
+				String var = newAppointmentType.substring(0, 1) + "getExistence"
+						+ newAppointmentID;
 				String ans = (mn.UDPConnect(7001, var));
 				if (ans.contains("Available")) {
 					count++;
-					if (Lowest_EventId.equals(newEventID)) {
+					if (Lowest_AppointmentId.equals(newAppointmentID)) {
 						String count1 = mn.UDPConnect(7000, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						String count2 = mn.UDPConnect(7001, ("checkCount"
-								+ customerID + Lowest_EventId));
+								+ customerID + Lowest_AppointmentId));
 						numberOfBooking = Integer.parseInt(count1.substring(0,
 								1)) + Integer.parseInt(count2.substring(0, 1));
 					}
@@ -953,8 +953,8 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		}
 
 		if (count < 2) {
-			return CommonOutput.swapEventOutput(false, CommonOutput.swapEvent_fail_no_such_event);
-			//return ("Event Id doesn't exist or no capacity for the event");
+			return CommonOutput.swapAppointmentOutput(false, CommonOutput.swapAppointment_fail_no_such_appointment);
+			//return ("Appointment Id doesn't exist or no capacity for the appointment");
 		}
 
 		if (date <= 3
@@ -963,49 +963,49 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 						&& newServ.equalsIgnoreCase(serv) && oldServ
 							.equalsIgnoreCase(serv))) {
 			if (numberOfBooking == 3) {
-				String str2 = d1.cancelEvent(customerID, oldEventID,
-						oldEventType, serv);
+				String str2 = d1.cancelAppointment(customerID, oldAppointmentID,
+						oldAppointmentType, serv);
 				str.append(str2.trim());
 
 				if (str2.contains("Success")) {
-					String str1 = d1.bookEvent(customerID, newEventID,
-							newEventType, serv);
+					String str1 = d1.bookAppointment(customerID, newAppointmentID,
+							newAppointmentType, serv);
 					str.append(str1);
 					if (!(str1.contains("Success"))) {
-						String str3 = d1.bookEvent(customerID, oldEventID,
-								oldEventType, serv);
-						str.append(". Failed to swap event because booking was not availablle");
+						String str3 = d1.bookAppointment(customerID, oldAppointmentID,
+								oldAppointmentType, serv);
+						str.append(". Failed to swap appointment because booking was not availablle");
 					}
 				}
 			} else {
-				String str2 = d1.bookEvent(customerID, newEventID,
-						newEventType, serv);
+				String str2 = d1.bookAppointment(customerID, newAppointmentID,
+						newAppointmentType, serv);
 				str.append(str2.trim());
 
 				if (str2.contains("Success")) {
-					String str1 = d1.cancelEvent(customerID, oldEventID,
-							oldEventType, serv);
+					String str1 = d1.cancelAppointment(customerID, oldAppointmentID,
+							oldAppointmentType, serv);
 					str.append(str1);
 					if (!(str1.contains("Success"))) {
-						String str3 = d1.cancelEvent(customerID, newEventID,
-								newEventType, serv);
-						str.append(". Failed to swap event because booking was not availablle");
+						String str3 = d1.cancelAppointment(customerID, newAppointmentID,
+								newAppointmentType, serv);
+						str.append(". Failed to swap appointment because booking was not availablle");
 					}
 				}
 			}
 		} else {
-			String str2 = d1.bookEvent(customerID, newEventID, newEventType,
+			String str2 = d1.bookAppointment(customerID, newAppointmentID, newAppointmentType,
 					serv);
 			str.append(str2.trim());
 
 			if (str2.contains("Success")) {
-				String str1 = d1.cancelEvent(customerID, oldEventID,
-						oldEventType, serv);
+				String str1 = d1.cancelAppointment(customerID, oldAppointmentID,
+						oldAppointmentType, serv);
 				str.append(str1);
 				if (!(str1.contains("Success"))) {
-					String str3 = d1.cancelEvent(customerID, newEventID,
-							newEventType, serv);
-					str.append(". Failed to swap event because booking was not availablle");
+					String str3 = d1.cancelAppointment(customerID, newAppointmentID,
+							newAppointmentType, serv);
+					str.append(". Failed to swap appointment because booking was not availablle");
 				}
 			}
 		}
@@ -1017,10 +1017,10 @@ public class AppointmentManagement  extends UnicastRemoteObject  implements Mana
 		 * executor.shutdownNow();
 		 */
 		if((str.toString()).contains("Failed to swap")){
-			return CommonOutput.swapEventOutput(false, null);
+			return CommonOutput.swapAppointmentOutput(false, null);
 		}
 		else
-		return CommonOutput.swapEventOutput(true, null);
+		return CommonOutput.swapAppointmentOutput(true, null);
 	}
 
 	

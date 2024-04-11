@@ -7,17 +7,17 @@ import java.util.Map;
 public class CommonOutput {
 	public static final String general_fail = "failed";
 	public static final String general_success = "successful";
-	public static final String addEvent_fail_cannot_decrease_capacity = "Cannot decrease capacity";
-	public static final String addEvent_success_added = "Event added successfully";
-	public static final String addEvent_success_capacity_updated = "Event updated successfully";
-	public static final String removeEvent_fail_no_such_event = "No such event";
-	public static final String bookEvent_fail_no_such_event = "No such event";
-	public static final String bookEvent_fail_no_capacity = "Event is full";
-	public static final String bookEvent_fail_weekly_limit = "Weekly limit reached";
-	public static final String cancelEvent_fail_not_registered_in_event = "You are not registered in event";
-	public static final String cancelEvent_fail_no_such_event = "No such event";
-	public static final String swapEvent_fail_no_such_event = "No such event";
-	public static final String swapEvent_fail_not_registered_in_event = "You are not registered in event";
+	public static final String addAppointment_fail_cannot_decrease_capacity = "Cannot decrease capacity";
+	public static final String addAppointment_success_added = "Appointment added successfully";
+	public static final String addAppointment_success_capacity_updated = "Appointment updated successfully";
+	public static final String removeAppointment_fail_no_such_appointment = "No such appointment";
+	public static final String bookAppointment_fail_no_such_appointment = "No such appointment";
+	public static final String bookAppointment_fail_no_capacity = "Appointment is full";
+	public static final String bookAppointment_fail_weekly_limit = "Weekly limit reached";
+	public static final String cancelAppointment_fail_not_registered_in_appointment = "You are not registered in appointment";
+	public static final String cancelAppointment_fail_no_such_appointment = "No such appointment";
+	public static final String swapAppointment_fail_no_such_appointment = "No such appointment";
+	public static final String swapAppointment_fail_not_registered_in_appointment = "You are not registered in appointment";
 	private static final String SUCCESS = "Success:";
 	private static final String FAIL = "Fail:";
 
@@ -28,7 +28,7 @@ public class CommonOutput {
 			return FAIL + method + " > " + output;
 	}
 
-	public static String addEventOutput(boolean isSuccess, String reason) {
+	public static String addAppointmentOutput(boolean isSuccess, String reason) {
 		if (isSuccess) {
 			if (reason == null) {
 				reason = general_success;
@@ -38,21 +38,21 @@ public class CommonOutput {
 				reason = general_fail;
 			}
 		}
-		return standardOutput(isSuccess, "addEvent", reason);
+		return standardOutput(isSuccess, "addAppointment", reason);
 	}
 
 	/**
-	 * Format of each string in allEventIDsWithCapacity --> EventID+ one space + remainingCapacity
+	 * Format of each string in allAppointmentIDsWithCapacity --> AppointmentID+ one space + remainingCapacity
 	 */
-	public static String listEventAvailabilityOutput(boolean isSuccess, List<String> allEventIDsWithCapacity, String reason) {
+	public static String listAppointmentAvailabilityOutput(boolean isSuccess, List<String> allAppointmentIDsWithCapacity, String reason) {
 		if (isSuccess) {
 			reason = general_success;
-			if (allEventIDsWithCapacity.size() > 0) {
+			if (allAppointmentIDsWithCapacity.size() > 0) {
 				StringBuilder reasonBuilder = new StringBuilder();
-				for (String event :
-						allEventIDsWithCapacity) {
-					if (event.length() > 10) {
-						reasonBuilder.append(event).append("@");
+				for (String appointment :
+						allAppointmentIDsWithCapacity) {
+					if (appointment.length() > 10) {
+						reasonBuilder.append(appointment).append("@");
 					}
 				}
 				if (reasonBuilder.length() > 0)
@@ -63,10 +63,10 @@ public class CommonOutput {
 		} else {
 			reason = general_fail;
 		}
-		return standardOutput(isSuccess, "listEventAvailability", reason);
+		return standardOutput(isSuccess, "listAppointmentAvailability", reason);
 	}
 
-	public static String removeEventOutput(boolean isSuccess, String reason) {
+	public static String removeAppointmentOutput(boolean isSuccess, String reason) {
 		if (isSuccess) {
 			reason = general_success;
 		} else {
@@ -74,10 +74,10 @@ public class CommonOutput {
 				reason = general_fail;
 			}
 		}
-		return standardOutput(isSuccess, "removeEvent", reason);
+		return standardOutput(isSuccess, "removeAppointment", reason);
 	}
 
-	public static String bookEventOutput(boolean isSuccess, String reason) {
+	public static String bookAppointmentOutput(boolean isSuccess, String reason) {
 		if (isSuccess) {
 			reason = general_success;
 		} else {
@@ -85,20 +85,20 @@ public class CommonOutput {
 				reason = general_fail;
 			}
 		}
-		return standardOutput(isSuccess, "bookEvent", reason);
+		return standardOutput(isSuccess, "bookAppointment", reason);
 	}
 
-	//Format for output EventType+ one space + EventID
-	public static String getBookingScheduleOutput(boolean isSuccess, Map<String, List<String>> events, String reason) {
+	//Format for output AppointmentType+ one space + AppointmentID
+	public static String getBookingScheduleOutput(boolean isSuccess, Map<String, List<String>> appointments, String reason) {
 		if (isSuccess) {
 			reason = general_success;
-			if (events.size() > 0) {
+			if (appointments.size() > 0) {
 				StringBuilder reasonBuilder = new StringBuilder();
-				for (String eventType :
-						events.keySet()) {
-					for (String eventID :
-							events.get(eventType)) {
-						reasonBuilder.append(eventType).append(" ").append(eventID).append("@");
+				for (String appointmentType :
+						appointments.keySet()) {
+					for (String appointmentID :
+							appointments.get(appointmentType)) {
+						reasonBuilder.append(appointmentType).append(" ").append(appointmentID).append("@");
 					}
 				}
 				reason = reasonBuilder.toString();
@@ -113,7 +113,7 @@ public class CommonOutput {
 		return standardOutput(isSuccess, "getBookingSchedule", reason);
 	}
 
-	public static String cancelEventOutput(boolean isSuccess, String reason) {
+	public static String cancelAppointmentOutput(boolean isSuccess, String reason) {
 		if (isSuccess) {
 			reason = general_success;
 		} else {
@@ -121,11 +121,11 @@ public class CommonOutput {
 				reason = general_fail;
 			}
 		}
-		return standardOutput(isSuccess, "cancelEvent", reason);
+		return standardOutput(isSuccess, "cancelAppointment", reason);
 	}
 
 
-	public static String swapEventOutput(boolean isSuccess, String reason) {
+	public static String swapAppointmentOutput(boolean isSuccess, String reason) {
 		if (isSuccess) {
 			reason = general_success;
 		} else {
@@ -133,6 +133,6 @@ public class CommonOutput {
 				reason = general_fail;
 			}
 		}
-		return standardOutput(isSuccess, "swapEvent", reason);
+		return standardOutput(isSuccess, "swapAppointment", reason);
 	}
 }

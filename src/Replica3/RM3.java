@@ -114,7 +114,7 @@ public class RM3 {
                 } else if (parts[2].equalsIgnoreCase("23")) {
                     Runnable crash_task = () -> {
                         try {
-                            //suspend the execution of messages untill all servers are up. (serversFlag=false)
+                            //suspend the execution of messages until all servers are up. (serversFlag=false)
                             serversFlag = false;
                             //reboot Monteal Server
                             Registry montreal_registry = LocateRegistry.getRegistry(5555);
@@ -128,7 +128,7 @@ public class RM3 {
                             quebec_obj.shutDown();
                             System.out.println("RM3 shutdown Quebec Server");
 
-                            //reboot Sherbrooke Server
+                            //reboot Sherbrook Server
                             Registry sherbrook_registry = LocateRegistry.getRegistry(5557);
                             Manager sherbrook_obj = (Manager) sherbrook_registry.lookup("Function");
                             sherbrook_obj.shutDown();
@@ -141,7 +141,7 @@ public class RM3 {
                             Thread.sleep(500);
                             Sherbrook.main(new String[0]);
 
-                            //wait untill are servers are up
+                            //wait until are servers are up
                             Thread.sleep(5000);
 
                             System.out.println("RM3 is reloading servers hashmap");
@@ -174,12 +174,12 @@ public class RM3 {
         String MessageType = parts[2];
         String Function = parts[3];
         String userID = parts[4];
-        String newEventID = parts[5];
-        String newEventType = parts[6];
-        String oldEventID = parts[7];
-        String oldEventType = parts[8];
+        String newAppointmentID = parts[5];
+        String newAppointmentType = parts[6];
+        String oldAppointmentID = parts[7];
+        String oldAppointmentType = parts[8];
         int bookingCapacity = Integer.parseInt(parts[9]);
-        Message message = new Message(sequenceId, FrontIpAddress, MessageType, Function, userID, newEventID, newEventType, oldEventID, oldEventType, bookingCapacity);
+        Message message = new Message(sequenceId, FrontIpAddress, MessageType, Function, userID, newAppointmentID, newAppointmentType, oldAppointmentID, oldAppointmentType, bookingCapacity);
         return message;
     }
 
@@ -243,9 +243,9 @@ public class RM3 {
                         System.out.println("RM3 is executing message request. Detail:" + data);
                         String response = requestToServers(data);
                         Replica1.DataBase.Message message = new Replica1.DataBase.Message(data.sequenceId, response, "RM3",
-                                data.Function, data.userID, data.newEventID,
-                                data.newEventType, data.oldEventID,
-                                data.oldEventType, data.bookingCapacity);
+                                data.Function, data.userID, data.newAppointmentID,
+                                data.newAppointmentType, data.oldAppointmentID,
+                                data.oldAppointmentType, data.bookingCapacity);
                         lastSequenceID += 1;
                         messsageToFront(message.toString(), data.FrontIpAddress);
                         message_q.poll();
@@ -265,34 +265,34 @@ public class RM3 {
         Manager obj = (Manager) registry.lookup("Function");
         String bookingServ = input.userID.substring(0, 3).toUpperCase();
         if (input.userID.substring(3, 4).equalsIgnoreCase("M")) {
-            if (input.Function.equalsIgnoreCase("addEvent")) {
-                String response = obj.addEvent(input.newEventID, input.newEventType, input.bookingCapacity, bookingServ);
+            if (input.Function.equalsIgnoreCase("addAppointment")) {
+                String response = obj.addAppointment(input.newAppointmentID, input.newAppointmentType, input.bookingCapacity, bookingServ);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("removeEvent")) {
-                String response = obj.removeEvent(input.newEventID, input.newEventType, bookingServ);
+            } else if (input.Function.equalsIgnoreCase("removeAppointment")) {
+                String response = obj.removeAppointment(input.newAppointmentID, input.newAppointmentType, bookingServ);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("listEventAvailability")) {
-                String response = obj.listEventAvailability(input.newEventType, bookingServ);
+            } else if (input.Function.equalsIgnoreCase("listAppointmentAvailability")) {
+                String response = obj.listAppointmentAvailability(input.newAppointmentType, bookingServ);
                 System.out.println(response);
                 return response;
             }
         } else if (input.userID.substring(3, 4).equalsIgnoreCase("C")) {
-            if (input.Function.equalsIgnoreCase("bookEvent")) {
-                String response = obj.bookEvent(input.userID, input.newEventID, input.newEventType, bookingServ);
+            if (input.Function.equalsIgnoreCase("bookAppointment")) {
+                String response = obj.bookAppointment(input.userID, input.newAppointmentID, input.newAppointmentType, bookingServ);
                 System.out.println(response);
                 return response;
             } else if (input.Function.equalsIgnoreCase("getBookingSchedule")) {
                 String response = obj.getBookingSchedule(input.userID, bookingServ);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("cancelEvent")) {
-                String response = obj.cancelEvent(input.userID, input.newEventID, input.newEventType, bookingServ);
+            } else if (input.Function.equalsIgnoreCase("cancelAppointment")) {
+                String response = obj.cancelAppointment(input.userID, input.newAppointmentID, input.newAppointmentType, bookingServ);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("swapEvent")) {
-                String response = obj.swapEvent(input.userID, input.newEventID, input.newEventType, input.oldEventID, input.oldEventType, bookingServ);
+            } else if (input.Function.equalsIgnoreCase("swapAppointment")) {
+                String response = obj.swapAppointment(input.userID, input.newAppointmentID, input.newAppointmentType, input.oldAppointmentID, input.oldAppointmentType, bookingServ);
                 System.out.println(response);
                 return response;
             }
