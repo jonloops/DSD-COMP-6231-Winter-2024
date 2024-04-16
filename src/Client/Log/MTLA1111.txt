@@ -1,0 +1,4 @@
+DATE: 2024-04-15 03:46:00 PM  login attempt
+DATE: 2024-04-15 03:46:00 PM  Manager Login successful
+DATE: 2024-04-15 03:46:11 PM  attempting to addEvent
+DATE: 2024-04-15 03:46:11 PM Client Action:  addEvent | RequestParameters:  eventID: MTLM250424 eventType: Conferences eventCapacity: 1  | Server Response: Null response from serverMTL

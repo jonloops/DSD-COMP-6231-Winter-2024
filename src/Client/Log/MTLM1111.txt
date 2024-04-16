@@ -1,0 +1,22 @@
+DATE: 2024-04-15 08:00:01 PM  login attempt
+DATE: 2024-04-15 08:00:01 PM  Manager Login successful
+DATE: 2024-04-15 08:00:21 PM  attempting to addEvent
+DATE: 2024-04-15 08:00:21 PM Client Action:  addEvent | RequestParameters:  eventID: MTLA010524 eventType: Conferences eventCapacity: 5  | Server Response: Success:Appointment updated successfully
+DATE: 2024-04-15 08:01:01 PM  attempting to bookEvent
+DATE: 2024-04-15 08:01:01 PM Client Action:  bookEvent | RequestParameters:  customerID: MTLC1111 eventID: MTLA010524 eventType: Conferences  | Server Response: Success:successful
+DATE: 2024-04-15 08:01:10 PM  attempting to listEventAvailability
+DATE: 2024-04-15 08:01:10 PM Client Action:  listEventAvailability | RequestParameters:  eventType: Conferences  | Server Response: Success:MTLA010524 4
+DATE: 2024-04-15 08:01:25 PM  attempting to getBookingSchedule
+DATE: 2024-04-15 08:01:25 PM Client Action:  getBookingSchedule | RequestParameters:  customerID: MTLC1111  | Server Response: Success:CONFERENCES MTLA010524
+DATE: 2024-04-15 08:05:51 PM  attempting to addEvent
+DATE: 2024-04-15 08:05:51 PM Client Action:  addEvent | RequestParameters:  eventID: MTLM010524 eventType: Conferences eventCapacity: 4  | Server Response: Success:Appointment added successfully
+DATE: 2024-04-15 08:06:25 PM  attempting to swapEvent
+DATE: 2024-04-15 08:06:25 PM Client Action:  swapEvent | RequestParameters:  customerID: MTLC1111 oldEventID: MTLA010524 oldEventType: Conferences newEventID: MTLM010524 newEventType: Conferences  | Server Response: Success:successful
+DATE: 2024-04-15 08:06:36 PM  attempting to getBookingSchedule
+DATE: 2024-04-15 08:06:36 PM Client Action:  getBookingSchedule | RequestParameters:  customerID: MTLC1111  | Server Response: Success:CONFERENCES MTLM010524
+DATE: 2024-04-15 08:08:24 PM  attempting to listEventAvailability
+DATE: 2024-04-15 08:08:24 PM Client Action:  listEventAvailability | RequestParameters:  eventType: Conferences  | Server Response: Success:MTLM010524 3@MTLA010524 5
+DATE: 2024-04-15 08:12:30 PM  login attempt
+DATE: 2024-04-15 08:12:30 PM  Manager Login successful
+DATE: 2024-04-15 08:12:40 PM  attempting to addEvent
+DATE: 2024-04-15 08:12:40 PM Client Action:  addEvent | RequestParameters:  eventID: MTLA020524 eventType: Conferences eventCapacity: 5  | Server Response: Success:Appointment added successfully

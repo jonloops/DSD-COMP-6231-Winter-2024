@@ -1,10 +1,10 @@
 package Replica1;
 
-import Replica1.Database.Message;
+import Replica1.DataBase.Message;
 import Replica1.Server.Montreal;
 import Replica1.Server.Quebec;
 import Replica1.Server.Sherbrooke;
-import Replica1.ServerInterface.AppointmentManagementInterface;
+import Replica1.ServerInterface.EventManagementInterface;
 
 import java.io.IOException;
 import java.net.*;
@@ -125,19 +125,19 @@ public class RM1 {
                             serversFlag = false;
                             //reboot Monteal Server
                             Registry montreal_registry = LocateRegistry.getRegistry(9992);
-                            AppointmentManagementInterface montreal_obj = (AppointmentManagementInterface) montreal_registry.lookup("ServerClass");
+                            EventManagementInterface montreal_obj = (EventManagementInterface) montreal_registry.lookup("ServerClass");
                             montreal_obj.shutDown();
                             System.out.println("RM1 shutdown Montreal Server");
 
                             //reboot Quebec Server
                             Registry quebec_registry = LocateRegistry.getRegistry(9991);
-                            AppointmentManagementInterface quebec_obj = (AppointmentManagementInterface) quebec_registry.lookup("ServerClass");
+                            EventManagementInterface quebec_obj = (EventManagementInterface) quebec_registry.lookup("ServerClass");
                             quebec_obj.shutDown();
                             System.out.println("RM1 shutdown Quebec Server");
 
                             //reboot Sherbrooke Server
                             Registry sherbrook_registry = LocateRegistry.getRegistry(9993);
-                            AppointmentManagementInterface sherbrook_obj = (AppointmentManagementInterface) sherbrook_registry.lookup("ServerClass");
+                            EventManagementInterface sherbrook_obj = (EventManagementInterface) sherbrook_registry.lookup("ServerClass");
                             sherbrook_obj.shutDown();
                             System.out.println("RM1 shutdown Sherbrooke Server");
 
@@ -182,12 +182,12 @@ public class RM1 {
         String MessageType = parts[2];
         String Function = parts[3];
         String userID = parts[4];
-        String newAppointmentID = parts[5];
-        String newAppointmentType = parts[6];
-        String oldAppointmentID = parts[7];
-        String oldAppointmentType = parts[8];
+        String newEventID = parts[5];
+        String newEventType = parts[6];
+        String oldEventID = parts[7];
+        String oldEventType = parts[8];
         int bookingCapacity = Integer.parseInt(parts[9]);
-        Message message = new Message(sequenceId, FrontIpAddress, MessageType, Function, userID, newAppointmentID, newAppointmentType, oldAppointmentID, oldAppointmentType, bookingCapacity);
+        Message message = new Message(sequenceId, FrontIpAddress, MessageType, Function, userID, newEventID, newEventType, oldEventID, oldEventType, bookingCapacity);
         return message;
     }
 
@@ -252,9 +252,9 @@ public class RM1 {
                             System.out.println("RM1 is executing message request. Detail:" + data);
                             requestToServers(data);
                             Message bug_message = new Message(data.sequenceId, "Null", "RM1",
-                                    data.Function, data.userID, data.newAppointmentID,
-                                    data.newAppointmentType, data.oldAppointmentID,
-                                    data.oldAppointmentType, data.bookingCapacity);
+                                    data.Function, data.userID, data.newEventID,
+                                    data.newEventType, data.oldEventID,
+                                    data.oldEventType, data.bookingCapacity);
 //                            bug_counter += 1;
                             lastSequenceID += 1;
                             messsageToFront(bug_message.toString(), data.FrontIpAddress);
@@ -263,9 +263,9 @@ public class RM1 {
                             System.out.println("RM1 is executing message request. Detail:" + data);
                             String response = requestToServers(data);
                             Message message = new Message(data.sequenceId, response, "RM1",
-                                    data.Function, data.userID, data.newAppointmentID,
-                                    data.newAppointmentType, data.oldAppointmentID,
-                                    data.oldAppointmentType, data.bookingCapacity);
+                                    data.Function, data.userID, data.newEventID,
+                                    data.newEventType, data.oldEventID,
+                                    data.oldEventType, data.bookingCapacity);
                             lastSequenceID += 1;
                             messsageToFront(message.toString(), data.FrontIpAddress);
                             message_q.poll();
@@ -283,37 +283,37 @@ public class RM1 {
     private static String requestToServers(Message input) throws Exception {
         int portNumber = serverPort(input.userID.substring(0, 3));
         Registry registry = LocateRegistry.getRegistry(portNumber);
-        AppointmentManagementInterface obj = (AppointmentManagementInterface) registry.lookup("ServerClass");
+        EventManagementInterface obj = (EventManagementInterface) registry.lookup("ServerClass");
 
         if (input.userID.substring(3, 4).equalsIgnoreCase("M")) {
-            if (input.Function.equalsIgnoreCase("addAppointment")) {
-                String response = obj.addAppointment(input.newAppointmentID, input.newAppointmentType, input.bookingCapacity);
+            if (input.Function.equalsIgnoreCase("addEvent")) {
+                String response = obj.addEvent(input.newEventID, input.newEventType, input.bookingCapacity);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("removeAppointment")) {
-                String response = obj.removeAppointment(input.newAppointmentID, input.newAppointmentType);
+            } else if (input.Function.equalsIgnoreCase("removeEvent")) {
+                String response = obj.removeEvent(input.newEventID, input.newEventType);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("listAppointmentAvailability")) {
-                String response = obj.listAppointmentAvailability(input.newAppointmentType);
+            } else if (input.Function.equalsIgnoreCase("listEventAvailability")) {
+                String response = obj.listEventAvailability(input.newEventType);
                 System.out.println(response);
                 return response;
             }
         } else if (input.userID.substring(3, 4).equalsIgnoreCase("C")) {
-            if (input.Function.equalsIgnoreCase("bookAppointment")) {
-                String response = obj.bookAppointment(input.userID, input.newAppointmentID, input.newAppointmentType);
+            if (input.Function.equalsIgnoreCase("bookEvent")) {
+                String response = obj.bookEvent(input.userID, input.newEventID, input.newEventType);
                 System.out.println(response);
                 return response;
             } else if (input.Function.equalsIgnoreCase("getBookingSchedule")) {
                 String response = obj.getBookingSchedule(input.userID);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("cancelAppointment")) {
-                String response = obj.cancelAppointment(input.userID, input.newAppointmentID, input.newAppointmentType);
+            } else if (input.Function.equalsIgnoreCase("cancelEvent")) {
+                String response = obj.cancelEvent(input.userID, input.newEventID, input.newEventType);
                 System.out.println(response);
                 return response;
-            } else if (input.Function.equalsIgnoreCase("swapAppointment")) {
-                String response = obj.swapAppointment(input.userID, input.newAppointmentID, input.newAppointmentType, input.oldAppointmentID, input.oldAppointmentType);
+            } else if (input.Function.equalsIgnoreCase("swapEvent")) {
+                String response = obj.swapEvent(input.userID, input.newEventID, input.newEventType, input.oldEventID, input.oldEventType);
                 System.out.println(response);
                 return response;
             }

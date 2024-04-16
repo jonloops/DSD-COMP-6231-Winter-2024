@@ -1,0 +1,5 @@
+DATE: 2024-04-15 05:06:12 PM  login attempt
+DATE: 2024-04-15 05:06:12 PM  Customer Login successful
+DATE: 2024-04-15 05:06:45 PM  attempting to bookEvent
+DATE: 2024-04-15 05:06:55 PM Client Action:  bookEvent | RequestParameters:  eventID: MTLA040424 eventType: Conferences  | Server Response: Fail:bookEvent > No such appointment
+DATE: 2024-04-15 05:07:05 PM  attempting to Logout

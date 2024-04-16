@@ -1,47 +1,47 @@
 package Replica1.Server;
 
 public class Server {
-    public static void main(String[] args) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Montreal.main(args);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        }.start();
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Quebec.main(args);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        }.start();
-
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Sherbrooke.main(args);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-        }.start();
-
+	public static void main(String[] args) {
+		new Thread() {
+			@Override 
+			public void run() {
+				try {
+					Montreal.main(args);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}.start();
+		new Thread() {
+			@Override 
+			public void run() {
+				try {
+					Quebec.main(args);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}.start();
+		
+		new Thread() {
+			@Override 
+			public void run() {
+				try {
+					Sherbrooke.main(args);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}.start();
+		
 /*		new Thread() {
-			@Override
+			@Override 
 			public void run() {
 				try {
 					Client1.main(args);
@@ -49,8 +49,8 @@ public class Server {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				
 			}
 		}.start();*/
-    }
+	}
 }

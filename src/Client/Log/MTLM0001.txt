@@ -1,0 +1,6 @@
+DATE: 2024-04-15 05:07:11 PM  login attempt
+DATE: 2024-04-15 05:07:11 PM  Manager Login successful
+DATE: 2024-04-15 05:07:30 PM  attempting to addEvent
+DATE: 2024-04-15 05:07:40 PM Client Action:  addEvent | RequestParameters:  eventID: MTLM200424 eventType: Conferences eventCapacity: 5  | Server Response: Success:addEvent > Appointment added successfully
+DATE: 2024-04-15 05:12:16 PM  attempting to addEvent
+DATE: 2024-04-15 05:12:26 PM Client Action:  addEvent | RequestParameters:  eventID: MTLM050424 eventType: Seminars eventCapacity: 5  | Server Response: Success:addEvent > Appointment added successfully
